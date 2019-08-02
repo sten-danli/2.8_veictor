@@ -6,13 +6,15 @@ struct familien
 {
 	string papa;
 	string mama;
+	int honora;
 };
 int main()
 {
-	vector<familien> familienChina;
+	vector<familien> familienChina;//创建一个容器。
 	familien fam1;
 	fam1.mama = "Feng Shiyun";
 	fam1.papa = "Li Dan ";
+	fam1.honora = 12000000;
 	familienChina.push_back(fam1);
 
 	vector<familien>::iterator iter;
@@ -21,6 +23,7 @@ int main()
 	{
 		cout << iter->mama << endl;
 		cout << iter->papa << endl;
+		cout << (*iter).honora << endl;
 		iter++;
 	}
 
