@@ -1,6 +1,7 @@
 //vector和相配用的迭代器的基本使用方法。
 #include<iostream>
 #include<vector>
+#include <string>
 using namespace std;
 
 //vector容器常用操作与内存释放
@@ -10,23 +11,50 @@ using namespace std;
 
 struct conf
 {
-	char itemname[40];
-	char itemcontent[100];
+	string itemname;
+	string itemcontent;
 };
-char* getinfo(vector<conf*> &conflist, const char *item_name)
+//char* getinfo(vector<conf*> &conflist, const char *item_name)
+//{
+//	for (auto pos = conflist.begin(); pos != conflist.end(); ++pos)//
+//	{
+//		if (strcmp((*pos)->itemname, item_name) == 0)
+//		{
+//			return (*pos)->itemcontent;
+//		}
+//	}
+//	return nullptr;
+//}
+void getinfo(vector<conf> &conflist, string item_name)
 {
 	for (auto pos = conflist.begin(); pos != conflist.end(); ++pos)
 	{
-		if (strcmp((*pos)->itemname, item_name) == 0)
-		{
-			return (*pos)->itemcontent;
-		}
+		if ((*pos).itemname == item_name)
+			cout << (*pos).itemcontent;
 	}
-	return nullptr;
+	cout << "server name nicht gefunden.";
+	
 }
 int main()
 {
-	conf* pconf1 = new conf;
+	vector<conf> conflist;
+	conf configer1;
+	configer1.itemname = "server1";
+	configer1.itemcontent = "100000";
+
+	conf configer2;
+	configer2.itemname = "server2";
+	configer2.itemcontent = "111111";
+
+	conflist.push_back(configer1);
+	conflist.push_back(configer2);
+
+	getinfo(conflist, "server");
+	
+
+	
+
+	/*conf* pconf1 = new conf;
 	strcpy_s(pconf1->itemname, sizeof(pconf1->itemname), "ServerName");
 	strcpy_s(pconf1->itemcontent, sizeof(pconf1->itemcontent), "Zone 1");
 
@@ -36,30 +64,30 @@ int main()
 
 	vector<conf*> conflist;
 	conflist.push_back(pconf1);
-	conflist.push_back(pconf2);
+	conflist.push_back(pconf2);*/
 
-	char* get_server_name = getinfo(conflist, "ServerName");
+	/*char* get_server_name = getinfo(conflist, "ServerName");
 	if (get_server_name != nullptr)
 	{
 		cout << get_server_name << endl;
-	}
+	}*/
 
 	//释放内存，有new就一定要有delete
-	vector<conf*>::iterator pos;
-	pos = conflist.begin();
-	for (pos; pos != conflist.end(); ++pos)
-	{
-		delete (*pos);//这个是我们在conflist内自己增加的内容一定要自己释放。
-	}
-	conflist.clear();//conflist是迭代器，这个释放可有可无，系统执行完会自动释放。
+	//vector<conf*>::iterator pos;
+	//pos = conflist.begin();
+	//for (pos; pos != conflist.end(); ++pos)
+	//{
+	//	delete (*pos);//这个是我们在conflist内自己增加的内容一定要自己释放。
+	//}
+	//conflist.clear();//conflist是迭代器，这个释放可有可无，系统执行完会自动释放。
 
 	//实验是否可以打印。
 	//auto begin = conflist.begin(); auto end = conflist.end();
-	/*for (auto pos =conflist.begin(); pos!= conflist.end(); ++pos)
-	{
-		cout << (*pos)->itemcontent;
-		cout << (*pos)->itemname;
-	}*/	
+	//for (auto pos =conflist.begin(); pos!= conflist.end(); ++pos)
+	//{
+	//	cout << (*pos)->itemcontent;
+	//	cout << (*pos)->itemname;
+	//}
 }
 //二:vector 和 struct 一起使用方法举例实现
 //struct familien
