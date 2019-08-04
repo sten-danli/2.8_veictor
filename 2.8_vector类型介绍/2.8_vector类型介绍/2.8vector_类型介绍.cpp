@@ -43,16 +43,23 @@ int main()
 	{
 		cout << get_server_name << endl;
 	}
-	
 
+	//释放内存，有new就一定要有delete
+	vector<conf*>::iterator pos;
+	pos = conflist.begin();
+	for (pos; pos != conflist.end(); ++pos)
+	{
+		delete (*pos);//这个是我们在conflist内自己增加的内容一定要自己释放。
+	}
+	conflist.clear();//conflist是迭代器，这个释放可有可无，系统执行完会自动释放。
 
+	//实验是否可以打印。
 	//auto begin = conflist.begin(); auto end = conflist.end();
 	/*for (auto pos =conflist.begin(); pos!= conflist.end(); ++pos)
 	{
 		cout << (*pos)->itemcontent;
 		cout << (*pos)->itemname;
-	}*/
-	
+	}*/	
 }
 //二:vector 和 struct 一起使用方法举例实现
 //struct familien
