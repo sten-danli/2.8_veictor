@@ -9,52 +9,61 @@ using namespace std;
 //ServerName = 1区  //表示服务器名称
 //ServerID = 100000 //表示服务器ID
 
+
+//struct conf
+//{
+//	string itemname;
+//	string itemcontent;
+//};
+//
+//void getinfo(vector<conf> &conflist, string item_name)
+//{
+//	for (auto pos = conflist.begin(); pos != conflist.end(); ++pos)
+//	{
+//		if ((*pos).itemname == item_name)
+//			cout << (*pos).itemcontent;
+//	}
+//	cout << "server name nicht gefunden.";
+//	
+//}
+//int main()
+//{
+//	vector<conf> conflist;
+//	conf configer1;
+//	configer1.itemname = "server1";
+//	configer1.itemcontent = "100000";
+//
+//	conf configer2;
+//	configer2.itemname = "server2";
+//	configer2.itemcontent = "111111";
+//
+//	conflist.push_back(configer1);
+//	conflist.push_back(configer2);
+//
+//	getinfo(conflist, "server");
+//}
+
 struct conf
 {
-	string itemname;
-	string itemcontent;
+	char itemname[40];
+	char itemcontent[100];
 };
-//char* getinfo(vector<conf*> &conflist, const char *item_name)
-//{
-//	for (auto pos = conflist.begin(); pos != conflist.end(); ++pos)//
-//	{
-//		if (strcmp((*pos)->itemname, item_name) == 0)
-//		{
-//			return (*pos)->itemcontent;
-//		}
-//	}
-//	return nullptr;
-//}
-void getinfo(vector<conf> &conflist, string item_name)
+
+char* getinfo(vector<conf*> &conflist, const char *item_name)
 {
-	for (auto pos = conflist.begin(); pos != conflist.end(); ++pos)
+	for (auto pos = conflist.begin(); pos != conflist.end(); ++pos)//
 	{
-		if ((*pos).itemname == item_name)
-			cout << (*pos).itemcontent;
+		if (strcmp((*pos)->itemname, item_name) == 0)
+		{
+			return (*pos)->itemcontent;
+		}
 	}
-	cout << "server name nicht gefunden.";
-	
+	return nullptr;
 }
+
 int main()
 {
-	vector<conf> conflist;
-	conf configer1;
-	configer1.itemname = "server1";
-	configer1.itemcontent = "100000";
-
-	conf configer2;
-	configer2.itemname = "server2";
-	configer2.itemcontent = "111111";
-
-	conflist.push_back(configer1);
-	conflist.push_back(configer2);
-
-	getinfo(conflist, "server");
-	
-
-	
-
-	/*conf* pconf1 = new conf;
+	conf* pconf1 = new conf;
 	strcpy_s(pconf1->itemname, sizeof(pconf1->itemname), "ServerName");
 	strcpy_s(pconf1->itemcontent, sizeof(pconf1->itemcontent), "Zone 1");
 
@@ -64,31 +73,32 @@ int main()
 
 	vector<conf*> conflist;
 	conflist.push_back(pconf1);
-	conflist.push_back(pconf2);*/
-
-	/*char* get_server_name = getinfo(conflist, "ServerName");
+	conflist.push_back(pconf2);
+	  
+	char* get_server_name = getinfo(conflist, "ServerName");
 	if (get_server_name != nullptr)
 	{
 		cout << get_server_name << endl;
-	}*/
+	}
+
+	//在未使用get_server_name之前实验是否可以将conflist容器内内容打印出来。
+	auto begin = conflist.begin(); auto end = conflist.end();
+	for (auto pos = conflist.begin(); pos != conflist.end(); ++pos)
+	{
+		cout << (*pos)->itemcontent;
+		cout << (*pos)->itemname;
+	}
 
 	//释放内存，有new就一定要有delete
-	//vector<conf*>::iterator pos;
-	//pos = conflist.begin();
-	//for (pos; pos != conflist.end(); ++pos)
-	//{
-	//	delete (*pos);//这个是我们在conflist内自己增加的内容一定要自己释放。
-	//}
-	//conflist.clear();//conflist是迭代器，这个释放可有可无，系统执行完会自动释放。
-
-	//实验是否可以打印。
-	//auto begin = conflist.begin(); auto end = conflist.end();
-	//for (auto pos =conflist.begin(); pos!= conflist.end(); ++pos)
-	//{
-	//	cout << (*pos)->itemcontent;
-	//	cout << (*pos)->itemname;
-	//}
+	vector<conf*>::iterator pos;
+	pos = conflist.begin();
+	for (pos; pos != conflist.end(); ++pos)
+	{
+		delete (*pos);//这个是我们在conflist内自己增加的内容一定要自己释放。
+	}
+	conflist.clear();//conflist是迭代器，这个释放可有可无，系统执行完会自动释放。
 }
+
 //二:vector 和 struct 一起使用方法举例实现
 //struct familien
 //{
