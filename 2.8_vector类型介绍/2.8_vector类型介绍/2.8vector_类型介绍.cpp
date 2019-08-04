@@ -13,7 +13,17 @@ struct conf
 	char itemname[40];
 	char itemcontent[100];
 };
-
+char* getinfo(vector<conf*> &conflist, const char *item_name)
+{
+	for (auto pos = conflist.begin(); pos != conflist.end(); ++pos)
+	{
+		if (strcmp((*pos)->itemname, item_name) == 0)
+		{
+			return (*pos)->itemcontent;
+		}
+	}
+	return nullptr;
+}
 int main()
 {
 	conf* pconf1 = new conf;
@@ -21,15 +31,27 @@ int main()
 	strcpy_s(pconf1->itemcontent, sizeof(pconf1->itemcontent), "Zone 1");
 
 	conf* pconf2 = new conf;
-	strcpy_s(pconf2->itemname, sizeof(pconf2->itemname), "ServerName");
+	strcpy_s(pconf2->itemname, sizeof(pconf2->itemname), "ServerID");
 	strcpy_s(pconf2->itemcontent, sizeof(pconf2->itemcontent), "100000");
 
 	vector<conf*> conflist;
 	conflist.push_back(pconf1);
 	conflist.push_back(pconf2);
 
+	char* get_server_name = getinfo(conflist, "ServerName");
+	if (get_server_name != nullptr)
+	{
+		cout << get_server_name << endl;
+	}
 	
-	
+
+
+	//auto begin = conflist.begin(); auto end = conflist.end();
+	/*for (auto pos =conflist.begin(); pos!= conflist.end(); ++pos)
+	{
+		cout << (*pos)->itemcontent;
+		cout << (*pos)->itemname;
+	}*/
 	
 }
 //二:vector 和 struct 一起使用方法举例实现
